@@ -1,0 +1,41 @@
+
+---
+
+## 📊 Dataset Description
+
+The `dataset.csv` file contains time-segmented sensor readings.  
+Each record includes numerical features representing system state over time.
+
+| Column | Description |
+|--------|--------------|
+| `timestamp` | Time or sample index |
+| `feature_1`, `feature_2`, ... | Sensor or signal readings |
+| *(optional)* `anomaly` | 0 = normal, 1 = anomaly (if labeled) |
+
+If no anomaly labels are available, the model is trained **unsupervised** using normal data only.
+
+---
+
+## 🧠 Model Description
+
+The **LSTM Autoencoder** is trained to reconstruct normal time-series behavior.  
+Anomalies are detected by measuring the **reconstruction error**:
+
+- Low error → normal behavior  
+- High error → anomaly  
+
+### Model Architecture
+- Input: Sliding time window of N sequential readings  
+- Encoder: LSTM layers compress the temporal information  
+- Decoder: LSTM layers reconstruct the input sequence  
+- Output: Mean squared reconstruction loss
+
+---
+
+## ⚙️ How to Use
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+
+
